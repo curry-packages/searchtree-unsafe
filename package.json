@@ -1,0 +1,24 @@
+{
+    "name": "searchtree-unsafe",
+    "version": "1.0.0",
+    "author": "Michael Hanus <mh@informatik.uni-kiel.de>",
+    "synopsis": "Library to represent strongly encapsulated non-deterministic computations as a search tree where local unbound variables remain free",
+    "category": [ "Programming" ],
+    "dependencies": {
+        "base"    : ">= 1.0.0, < 2.0.0"
+    },
+    "exportedModules": [ "Control.SearchTree.Unsafe" ],
+    "compilerCompatibility": {
+        "kics2": ">= 2.0.0"
+    },
+    "testsuite": {
+        "src-dir": "test",
+        "modules": [ "TestExpTypeInference", "TestUnsafeSearchTree" ]
+    },
+    "license": "BSD-3-Clause",
+    "licenseFile": "LICENSE",
+    "source": {
+        "git": "https://git.ps.informatik.uni-kiel.de/curry-packages/searchtree-unsafe.git",
+        "tag": "$version"
+    }
+}
