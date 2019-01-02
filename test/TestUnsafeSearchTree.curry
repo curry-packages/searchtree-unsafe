@@ -2,7 +2,7 @@
 -- Some tests for the library Control.SearchTree.Unsafe
 ------------------------------------------------------------------------------
 
-import Test.EasyCheck
+import Test.Prop
 import Control.SearchTree.Unsafe
 import qualified SearchTree as ST
 

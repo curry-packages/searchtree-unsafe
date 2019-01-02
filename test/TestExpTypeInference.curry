@@ -1,7 +1,7 @@
 -- This module contains a short Curry program to infer types of
 -- simple expressions together with some unit tests.
 
-import Test.EasyCheck
+import Test.Prop
 import Control.SearchTree.Unsafe
 
 -- Expressions are the basic lambda expressions:
