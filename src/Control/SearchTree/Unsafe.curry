@@ -10,7 +10,7 @@
 ---          variable is bound later via pattern matching.
 ---
 --- @author  Michael Hanus, Bjoern Peemoeller, Fabian Reck
---- @version December 2018
+--- @version January 2019
 ------------------------------------------------------------------------------
 
 module Control.SearchTree.Unsafe
@@ -22,7 +22,7 @@ module Control.SearchTree.Unsafe
   , getAllValuesWith, someValue, someValueWith
   ) where
 
-import ValueSequence
+import Control.ValueSequence
 
 --- A search tree is a value, a failure, or a choice between two search trees.
 data SearchTree a = Value a

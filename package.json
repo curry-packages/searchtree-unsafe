@@ -5,7 +5,8 @@
     "synopsis": "Library to represent strongly encapsulated non-deterministic computations as a search tree where local unbound variables remain free",
     "category": [ "Programming" ],
     "dependencies": {
-        "base"    : ">= 1.0.0, < 2.0.0"
+        "base"       : ">= 1.0.0, < 2.0.0",
+        "searchtree" : ">= 1.0.0"
     },
     "exportedModules": [ "Control.SearchTree.Unsafe" ],
     "compilerCompatibility": {
