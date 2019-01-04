@@ -4,7 +4,7 @@
 
 import Test.Prop
 import Control.SearchTree.Unsafe
-import qualified SearchTree as ST
+import qualified Control.SearchTree as ST
 
 ------------------------------------------------------------------------------
 -- Testing isVar:
