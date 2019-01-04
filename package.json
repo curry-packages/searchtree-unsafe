@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "author": "Michael Hanus <mh@informatik.uni-kiel.de>",
     "synopsis": "Library to represent strongly encapsulated non-deterministic computations as a search tree where local unbound variables remain free",
-    "category": [ "Programming" ],
+    "category": [ "Logic", "Programming" ],
     "dependencies": {
         "base"       : ">= 1.0.0, < 2.0.0",
         "searchtree" : ">= 1.0.0"
