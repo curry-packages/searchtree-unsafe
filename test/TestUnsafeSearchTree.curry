@@ -3,29 +3,29 @@
 ------------------------------------------------------------------------------
 
 import Test.Prop
-import Control.SearchTree.Unsafe
-import qualified Control.SearchTree as ST
+import Control.Search.SearchTree.Unsafe
+import qualified Control.Search.SearchTree as ST
 
 ------------------------------------------------------------------------------
 -- Testing isVar:
 
 testIsVar1 =
-  always (not (isVar (someValue (let x free in x =:= (_,_) &> x))))
+  always (not (isVar (someValue (let x free in x =:= (_::Bool,_::Bool) &> x))))
 
 testIsVar2 =
-  always (isVar (fst (someValue (let x free in x =:= (_,_) &> x))))
+  always (isVar (fst (someValue (let x free in x =:= (_::Bool,_::Bool) &> x))))
 
 ------------------------------------------------------------------------------
 -- Testing varId:
 
 testGetVarId1 =
   always
-   (let (a,b) = someValue (let x free in x =:= (_,_) &> x)
+   (let (a,b) = someValue (let x free in x =:= (_::Bool,_::Bool) &> x)
      in (varId a /= varId b))
 
 testGetVarId2 =
   always
-   (let (a,b) = someValue (let x,y,z free in (x =:= (y,z) & y=:=z) &> x)
+   (let (a,b) = someValue (let x,y,z free in (x =:= (y::Bool,z) & y=:=z) &> x)
      in (varId a == varId b))
 
 ------------------------------------------------------------------------------

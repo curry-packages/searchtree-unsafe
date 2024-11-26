@@ -4,16 +4,18 @@
 --- This module implements **strong encapsulation** as discussed in
 --- [this paper](http://www.informatik.uni-kiel.de/~mh/papers/JFLP04_findall.html)
 ---
---- Warning: In contrast to the SearchTree Module, free variables that
----          are not bound in the encapsulated expression remain free!
----          This may lead to non-determinism if such an escaped
----          variable is bound later via pattern matching.
+--- __Warning:__
+---
+--- In contrast to the base module `Control.Search.SearchTree`, free variables
+--- that are not bound in the encapsulated expression remain free!
+--- This may lead to non-determinism if such an escaped variable
+--- is bound later via pattern matching.
 ---
 --- @author  Michael Hanus, Bjoern Peemoeller, Fabian Reck
---- @version January 2019
+--- @version November 2024
 ------------------------------------------------------------------------------
 
-module Control.SearchTree.Unsafe
+module Control.Search.SearchTree.Unsafe
   ( SearchTree (..), someSearchTree, getSearchTree
   , isDefined, showSearchTree, searchTreeSize, isVar, identicalVars, varId
   , Strategy, dfsStrategy, bfsStrategy, idsStrategy, idsStrategyWith
@@ -22,7 +24,7 @@ module Control.SearchTree.Unsafe
   , getAllValuesWith, someValue, someValueWith
   ) where
 
-import Control.ValueSequence
+import Control.Search.SearchTree
 
 --- A search tree is a value, a failure, or a choice between two search trees.
 data SearchTree a = Value a

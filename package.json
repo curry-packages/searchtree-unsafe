@@ -5,12 +5,11 @@
     "synopsis": "Library to represent strongly encapsulated non-deterministic computations as a search tree where local unbound variables remain free",
     "category": [ "Logic", "Programming" ],
     "dependencies": {
-        "base"       : ">= 1.0.0, < 2.0.0",
-        "searchtree" : ">= 1.0.0"
+        "base"       : ">= 3.3.0, < 4.0.0"
     },
-    "exportedModules": [ "Control.SearchTree.Unsafe" ],
+    "exportedModules": [ "Control.Search.SearchTree.Unsafe" ],
     "compilerCompatibility": {
-        "kics2": ">= 2.0.0"
+        "kics2": ">= 3.3.0, < 4.0.0"
     },
     "testsuite": {
         "src-dir": "test",
