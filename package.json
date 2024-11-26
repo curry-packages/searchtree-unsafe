@@ -1,6 +1,6 @@
 {
     "name": "searchtree-unsafe",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "author": "Michael Hanus <mh@informatik.uni-kiel.de>",
     "synopsis": "Library to represent strongly encapsulated non-deterministic computations as a search tree where local unbound variables remain free",
     "category": [ "Logic", "Programming" ],
