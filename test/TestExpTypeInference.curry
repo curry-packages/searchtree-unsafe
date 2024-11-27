@@ -59,7 +59,7 @@ inferType = numberTVars . instTVars . someValue . typeOf []
 
 -- Maybe we want to show type expression in a human-readable format:
 showTExp :: TExp -> String
-showTExp (TVar i) = [chr (97+i)]
+showTExp (TVar i) = [chr (97 + i)]
 showTExp (TFunc t1 t2) = "(" ++ showTExp t1 ++ " -> " ++ showTExp t2 ++ ")"
 
 -- Shows the inferred type of an expression.

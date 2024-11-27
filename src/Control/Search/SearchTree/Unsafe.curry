@@ -14,6 +14,7 @@
 --- @author  Michael Hanus, Bjoern Peemoeller, Fabian Reck
 --- @version November 2024
 ------------------------------------------------------------------------------
+{-# LANGUAGE CPP #-}
 
 module Control.Search.SearchTree.Unsafe
   ( SearchTree (..), someSearchTree, getSearchTree
@@ -37,7 +38,6 @@ data SearchTree a = Value a
 --- a part of a result of an encapsulated expression
 --- if the argument stems from a `Value` node of
 --- a SearchTree
-
 isVar :: a -> Bool
 isVar x = maybe False (const True) (lookupVarId x)
 
@@ -46,7 +46,6 @@ isVar x = maybe False (const True) (lookupVarId x)
 --- parts of a result of an encapsulated expression
 --- if the argument stems from a `Value` node of
 --- a SearchTree
-
 identicalVars :: a -> a -> Bool
 identicalVars x y =
   maybe False (\xi -> maybe False (==xi) (lookupVarId y)) (lookupVarId x)
@@ -58,9 +57,10 @@ identicalVars x y =
 --- if the argument stems from a `Value` node of
 --- a SearchTree
 varId :: a -> Int
-varId x = maybe (error "UnsafeSearchTree.varId: argument not a variable")
-                id
-                (lookupVarId x)
+varId x =
+  maybe (error "Control.Search.SearchTree.Unsafe.varId: argument not a variable")
+        id
+        (lookupVarId x)
 
 --- Returns the unique identifier of a free variable
 --- or Nothing, if the argument was not a free variable.
@@ -69,7 +69,14 @@ varId x = maybe (error "UnsafeSearchTree.varId: argument not a variable")
 --- if the argument stems from a `Value` node of
 --- a SearchTree
 lookupVarId :: a -> Maybe Int
+#ifdef __KICS2__
 lookupVarId external
+#else
+lookupVarId x = prim_lookupVarId $! x
+
+prim_lookupVarId :: a -> Maybe Int
+prim_lookupVarId external
+#endif
 
 type Strategy a = SearchTree a -> ValueSequence a
 
@@ -82,9 +89,19 @@ getSearchTree x = return (someSearchTree x)
 --- the ordering in the resulting search tree depends on the
 --- ordering of the program rules.
 someSearchTree :: a -> SearchTree a
+#ifdef __KICS2__
 someSearchTree external
+#else
+someSearchTree = list2st . allNormalForms
+ where list2st []       = Fail 0
+       list2st [x]      = Value x
+       list2st (x:y:ys) = Or (Value x) (list2st (y:ys))
 
---- Returns True iff the argument is is defined, i.e., has a value.
+allNormalForms :: a -> [a]
+allNormalForms external
+#endif
+
+--- Returns True iff the argument is defined, i.e., has a value.
 isDefined :: a -> Bool
 isDefined x = hasValue (someSearchTree x)
  where hasValue y = case y of Value _  -> True

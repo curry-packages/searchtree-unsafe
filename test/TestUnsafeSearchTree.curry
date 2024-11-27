@@ -9,46 +9,48 @@ import qualified Control.Search.SearchTree as ST
 ------------------------------------------------------------------------------
 -- Testing isVar:
 
-testIsVar1 =
-  always (not (isVar (someValue (let x free in x =:= (_::Bool,_::Bool) &> x))))
+boolVarPair = x =:= (_::Bool,_::Bool) &> x where x free
 
-testIsVar2 =
-  always (isVar (fst (someValue (let x free in x =:= (_::Bool,_::Bool) &> x))))
+testIsVar1 = always (not (isVar (someValue boolVarPair)))
+
+testIsVar2 = always (isVar (fst (someValue boolVarPair)))
 
 ------------------------------------------------------------------------------
 -- Testing varId:
 
-testGetVarId1 =
-  always
-   (let (a,b) = someValue (let x free in x =:= (_::Bool,_::Bool) &> x)
-     in (varId a /= varId b))
+diffVarIds1 =
+  let (a,b) = someValue boolVarPair
+  in (varId a /= varId b)
 
-testGetVarId2 =
-  always
-   (let (a,b) = someValue (let x,y,z free in (x =:= (y::Bool,z) & y=:=z) &> x)
-     in (varId a == varId b))
+testGetVarId1 = always diffVarIds1
+
+boolEqVarPair = let x,y,z free in (x =:= (y::Bool,z) & y=:=z) &> x
+
+diffVarIds2 =
+  let (a,b) = someValue boolEqVarPair
+  in (varId a == varId b)
+
+testGetVarId2 = always diffVarIds2
 
 ------------------------------------------------------------------------------
 -- The following tests also demonstrate why the encapsulated search
 -- with unbound variables in result values is non-declarative.
 
 testNumOfNongroundValues =
-   (length (allValuesDFS (someSearchTree (let x free in id (x::Bool)))))
-   -=- 1
+  (length (allValuesDFS (someSearchTree (id _ :: Bool)))) -=- 1
 
 testNumOfGroundValues =
-   (length (allValuesDFS (someSearchTree (let x free in not (not (x::Bool))))))
-   -=- 2
+  (length (allValuesDFS (someSearchTree (not (not (_::Bool)))))) -=- 2
 
--- However, there is no difference w.r.t. the SearchTree library:
+-- However, there is no difference w.r.t. the SearchTree library
+-- if the argument variable is always instantiated:
 
 testNumberOfSearchTreeValues1 =
-   (length (ST.allValuesDFS (ST.someSearchTree (let x free in id (x::Bool)))))
+   (length (ST.allValuesDFS (ST.someSearchTree (id (aValue::Bool)))))
    -=- 2
 
 testNumberOfSearchTreeValues2 =
-   (length (ST.allValuesDFS (ST.someSearchTree
-                                 (let x free in not (not (x::Bool))))))
+   (length (ST.allValuesDFS (ST.someSearchTree (not (not (aValue::Bool))))))
    -=- 2
 
 ------------------------------------------------------------------------------

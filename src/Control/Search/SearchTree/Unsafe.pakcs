@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE primitives SYSTEM "http://www.curry-lang.org/pakcs/primitives.dtd">
+<primitives>
+ <primitive name="allNormalForms" arity="1">
+  <entry>Unsafe.allNormalForms[raw]</entry>
+ </primitive>
+</primitives>
